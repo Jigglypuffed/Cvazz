@@ -5,6 +5,7 @@
 
 #include <array>
 #include <cstddef>
+#include <string>
 
 namespace cvazz {
 
@@ -14,6 +15,7 @@ struct Move {
 
   bool isHop() const { return From != Square::None; }
   bool isNull() const { return From == To; }
+  std::string toStr() const;
 };
 
 constexpr Move NULL_MOVE { Square::None, Square::None };

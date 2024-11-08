@@ -4,6 +4,7 @@
 #include "core/Position.hh"
 
 #include <cstdint>
+#include <iostream>
 
 using namespace cvazz;
 
@@ -28,4 +29,19 @@ std::uint64_t cvazz::perft(const Position &Pos, int Depth) {
   }
 
   return NodeCount;
+}
+
+std::uint64_t cvazz::splitperft(const Position &Pos, int Depth) {
+  MoveList Ml;
+  genAllMoves(Ml, Pos);
+
+  for (auto Mv : Ml) {
+    auto NewPos = Position(Pos);
+    makeMove(NewPos, Mv);
+    std::uint64_t NodeCount = perft(NewPos, Depth - 1);
+    std::cout << Mv.toStr() << " " << NodeCount << std::endl;
+    ;
+  }
+
+  return 0;
 }

@@ -4,6 +4,7 @@
 #include "core/types/Bitboard.hh"
 #include "core/types/Square.hh"
 #include <cstdint>
+#include <string>
 
 using namespace cvazz;
 
@@ -47,6 +48,14 @@ constexpr std::uint64_t SND_NEIGHBORS[] {
 };
 // clang-format on
 
+std::string Move::toStr() const {
+  if (this->isNull())
+    return "XXX";
+  else if (isHop())
+    return std::string(SQ_INDEX_STR[From]) + std::string(SQ_INDEX_STR[To]);
+  else
+    return std::string(SQ_INDEX_STR[To]);
+};
 void cvazz::genCloneMoves(MoveList &Ml, const Position &Pos) {
   auto Us = Pos.Pieces[Pos.Stm];
   auto Them = Pos.Pieces[Pos.xstm()];
