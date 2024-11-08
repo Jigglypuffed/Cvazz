@@ -60,10 +60,11 @@ void cvazz::genCloneMoves(MoveList &Ml, const Position &Pos) {
 void cvazz::genHopMoves(MoveList &Ml, const Position &Pos) {
   auto Us = Pos.Pieces[Pos.Stm];
   auto Them = Pos.Pieces[Pos.xstm()];
+  auto Empty = ~(Us | Them | Pos.Fills);
   while (Us) {
     auto From = Us.takeLsb();
     auto Tos = Bitboard(SND_NEIGHBORS[From]);
-    Tos &= ~(Us | Them | Pos.Fills);
+    Tos &= Empty;
     while (Tos)
       Ml.push_back({From, Square(Tos.takeLsb())});
   }
